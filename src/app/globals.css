@@ -1,26 +1,105 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-razer-black: #111111;
+  --color-razer-dark: #1a1a1a;
+  --color-razer-green: #44d62c;
+  --color-razer-gray: #888888;
+  --color-razer-light: #f0f0f0;
+  --color-razer-neon: #00ff88;
+  --color-razer-cyan: #00ffff;
+  
+  --font-gaming: var(--font-inter);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  body {
+    background-color: var(--color-razer-black);
+    color: var(--color-razer-light);
+    font-family: 'Inter', sans-serif;
+    position: relative;
+  }
+  
+  /* Efekti i grid-it në sfond (stili Razer) */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      linear-gradient(rgba(68, 214, 44, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(68, 214, 44, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  h1, h2, h3, h4 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer utilities {
+  .razer-glow {
+    text-shadow: 0 0 10px var(--color-razer-green);
+  }
+  
+  .razer-border {
+    border: 1px solid var(--color-razer-green);
+    box-shadow: 0 0 20px rgba(68, 214, 44, 0.3);
+  }
+  
+  .razer-gradient {
+    background: linear-gradient(135deg, var(--color-razer-green), var(--color-razer-cyan));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .glow-effect {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .glow-effect::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(68, 214, 44, 0.1),
+      transparent
+    );
+    transform: rotate(45deg);
+    animation: glow 3s infinite;
+  }
+  
+  @keyframes glow {
+    0% { transform: translateX(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) rotate(45deg); }
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-razer-dark);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-razer-green);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5eff44;
 }
